@@ -169,7 +169,186 @@ function triggerHeroAnimations() {
   setTimeout(() => setInterval(next, 2800), 2500);
 })();
 
-/* ─── 8. CERTIFICATE MODAL ───────────────────────────────────── */
+/* ─── 8. PROJECT LIGHTBOX ────────────────────────────────────── */
+const projectLightbox  = document.getElementById('projectLightbox');
+const lightboxImg      = document.getElementById('lightboxImg');
+const lightboxTitle    = document.getElementById('lightboxTitle');
+const lightboxCounter  = document.getElementById('lightboxCounter');
+const lightboxGithub   = document.getElementById('lightboxGithub');
+const lightboxShare    = document.getElementById('lightboxShare');
+const lightboxDownload = document.getElementById('lightboxDownload');
+
+function getLightboxCards() {
+  return Array.from(document.querySelectorAll('.project-card'));
+}
+
+window._lightboxIdx = 0;
+
+function openProjectLightbox(btnEl) {
+  const card  = btnEl.closest('.project-card');
+  const cards = getLightboxCards();
+  window._lightboxIdx = cards.indexOf(card);
+  _showLightboxSlide(window._lightboxIdx);
+  projectLightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function _showLightboxSlide(idx) {
+  const cards = getLightboxCards();
+  if (!cards.length) return;
+  idx = ((idx % cards.length) + cards.length) % cards.length;
+  window._lightboxIdx = idx;
+
+  const card        = cards[idx];
+  const imgEl       = card.querySelector('.project-img');
+  const titleEl     = card.querySelector('.project-title');
+  const githubUrl   = card.dataset.github   || '#';
+  const shareUrl    = card.dataset.share    || card.dataset.github || window.location.href;
+  const downloadUrl = card.dataset.download || card.dataset.github || '#';
+  const projTitle   = card.dataset.title    || titleEl?.textContent?.trim() || '';
+
+  lightboxImg.src = imgEl ? imgEl.src : '';
+  lightboxImg.alt = imgEl ? imgEl.alt : '';
+  lightboxTitle.textContent   = projTitle;
+  lightboxCounter.textContent = `${idx + 1} / ${cards.length}`;
+
+  // GitHub
+  lightboxGithub.href = githubUrl;
+  lightboxGithub.classList.toggle('disabled', !githubUrl || githubUrl === '#');
+
+  // Share — simpan URL di dataset tombol
+  lightboxShare.dataset.shareUrl   = shareUrl;
+  lightboxShare.dataset.shareTitle = projTitle;
+
+  // Download
+  if (!downloadUrl || downloadUrl === '#') {
+    lightboxDownload.classList.add('disabled');
+    lightboxDownload.removeAttribute('href');
+  } else {
+    lightboxDownload.classList.remove('disabled');
+    lightboxDownload.href = downloadUrl;
+  }
+}
+
+function lightboxNav(dir) {
+  _showLightboxSlide(window._lightboxIdx + dir);
+}
+
+function closeProjectLightbox(e) {
+  if (e && e.target !== projectLightbox) return;
+  projectLightbox.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('lightboxCloseBtn')?.addEventListener('click', () => {
+  projectLightbox.classList.remove('active');
+  document.body.style.overflow = '';
+});
+document.getElementById('lightboxPrevBtn')?.addEventListener('click', () => lightboxNav(-1));
+document.getElementById('lightboxNextBtn')?.addEventListener('click', () => lightboxNav(1));
+
+// Tombol share di lightbox
+lightboxShare?.addEventListener('click', () => {
+  openSharePopupFromData(
+    lightboxShare.dataset.shareUrl,
+    lightboxShare.dataset.shareTitle
+  );
+});
+
+document.addEventListener('keydown', e => {
+  if (!projectLightbox?.classList.contains('active')) return;
+  if (e.key === 'Escape')     { projectLightbox.classList.remove('active'); document.body.style.overflow = ''; }
+  if (e.key === 'ArrowRight') lightboxNav(1);
+  if (e.key === 'ArrowLeft')  lightboxNav(-1);
+});
+
+/* ─── 8b. SHARE POPUP ────────────────────────────────────────── */
+// URL aktif yang sedang di-share (dipakai oleh copyShareLink)
+window._currentShareUrl = '';
+
+function openSharePopup(btnEl) {
+  const card  = btnEl.closest('.project-card');
+  const url   = card.dataset.share || card.dataset.github || window.location.href;
+  const title = card.dataset.title || card.querySelector('.project-title')?.textContent?.trim() || 'Proyek';
+  _buildSharePopup(url, title);
+}
+
+function _buildSharePopup(url, title) {
+  window._currentShareUrl = url;
+
+  const enc    = encodeURIComponent(url);
+  const encMsg = encodeURIComponent(title + ' — ' + url);
+  const encTtl = encodeURIComponent(title);
+
+  // Set href langsung — ini yang penting, harus SEBELUM popup terlihat
+  document.getElementById('sharePopupTitle').textContent = title;
+  document.getElementById('shareWA').href       = 'https://wa.me/?text=' + encMsg;
+  document.getElementById('shareTwitter').href  = 'https://twitter.com/intent/tweet?text=' + encTtl + '&url=' + enc;
+  document.getElementById('shareLinkedin').href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + enc;
+  document.getElementById('shareTelegram').href = 'https://t.me/share/url?url=' + enc + '&text=' + encTtl;
+
+  // Reset tombol copy
+  const copyBtn = document.getElementById('shareCopy');
+  copyBtn.classList.remove('copied');
+  copyBtn.querySelector('span').textContent = 'Salin Link';
+
+  // Tampilkan popup
+  document.getElementById('sharePopup').classList.add('active');
+  document.getElementById('shareBackdrop').classList.add('active');
+}
+
+function copyShareLink() {
+  const url     = window._currentShareUrl;
+  const copyBtn = document.getElementById('shareCopy');
+
+  const done = () => {
+    copyBtn.classList.add('copied');
+    copyBtn.querySelector('span').textContent = 'Tersalin!';
+    setTimeout(() => {
+      copyBtn.classList.remove('copied');
+      copyBtn.querySelector('span').textContent = 'Salin Link';
+    }, 2000);
+  };
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(done).catch(() => fallbackCopy(url, done));
+  } else {
+    fallbackCopy(url, done);
+  }
+}
+
+function fallbackCopy(text, callback) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
+  document.body.appendChild(ta);
+  ta.focus(); ta.select();
+  try { document.execCommand('copy'); callback(); } catch(e) {}
+  document.body.removeChild(ta);
+}
+
+function closeSharePopup() {
+  document.getElementById('sharePopup').classList.remove('active');
+  document.getElementById('shareBackdrop').classList.remove('active');
+}
+
+// Tombol share di lightbox
+document.getElementById('lightboxShare')?.addEventListener('click', () => {
+  const cards = Array.from(document.querySelectorAll('.project-card'));
+  const card  = cards[window._lightboxIdx];
+  if (!card) return;
+  const url   = card.dataset.share || card.dataset.github || window.location.href;
+  const title = card.dataset.title || card.querySelector('.project-title')?.textContent?.trim() || 'Proyek';
+  _buildSharePopup(url, title);
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('sharePopup')?.classList.contains('active')) {
+    closeSharePopup();
+  }
+});
+
+/* ─── 9. CERTIFICATE MODAL ───────────────────────────────────── */
 const certModal      = document.getElementById('certModal');
 const certModalImg   = document.getElementById('certModalImg');
 const certModalTitle = document.getElementById('certModalTitle');
@@ -201,7 +380,7 @@ document.addEventListener('keydown', e => {
   }
 });
 
-/* ─── 9. CONTACT FORM (Formspree) ───────────────────────────── */
+/* ─── 10. CONTACT FORM (Formspree) ───────────────────────────── */
 /*
  * ⬇ GANTI "YOUR_FORM_ID" dengan Form ID kamu dari Formspree
  * Contoh: jika endpoint kamu https://formspree.io/f/abcd1234
