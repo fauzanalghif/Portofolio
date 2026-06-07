@@ -101,11 +101,12 @@ const statObs  = new IntersectionObserver((entries) => {
 statNums.forEach(n => statObs.observe(n));
 
 function animateCounter(el, target) {
+  const suffix = el.dataset.suffix || '';
   let cur = 0;
   const step = Math.ceil(target / 40);
   const t = setInterval(() => {
     cur += step;
-    if (cur >= target) { el.textContent = target + '+'; clearInterval(t); }
+    if (cur >= target) { el.textContent = target + suffix; clearInterval(t); }
     else               { el.textContent = cur; }
   }, 40);
 }
