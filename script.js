@@ -1,9 +1,6 @@
-/* ============================================================
-   FAUZAN AL-GHIFARI PORTFOLIO — script.js
-   Versi: 2.0 — Sinkron dengan index.html terbaru
-   ============================================================ */
+/*FAUZAN AL-GHIFARI PORTFOLIO — script.js*/
 
-/* ─── 1. LOADER ─────────────────────────────────────────────── */
+/* 1. LOADER  */
 window.addEventListener('load', () => {
   const loader = document.getElementById('loader');
   setTimeout(() => {
@@ -12,7 +9,7 @@ window.addEventListener('load', () => {
   }, 2000);
 });
 
-/* ─── 2. NAVBAR — scroll + hamburger ────────────────────────── */
+/* 2. NAVBAR — scroll + hamburger */
 const navbar    = document.getElementById('navbar');
 const hamburger = document.getElementById('hamburger');
 const navLinks  = document.getElementById('navLinks');
@@ -56,7 +53,7 @@ function highlightActiveNav() {
   });
 }
 
-/* ─── 3. SCROLL ANIMATIONS (IntersectionObserver) ───────────── */
+/* 3. SCROLL ANIMATIONS (IntersectionObserver) */
 const aosEls = document.querySelectorAll('[data-aos]');
 const aosObs = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -69,7 +66,7 @@ const aosObs = new IntersectionObserver((entries) => {
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 aosEls.forEach(el => aosObs.observe(el));
 
-/* ─── 4. SKILL BARS ──────────────────────────────────────────── */
+/* 4. SKILL BARS */
 const skillFills = document.querySelectorAll('.skill-fill');
 const skillObs   = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -88,7 +85,7 @@ function animateSkillBar(fill) {
   }
 }
 
-/* ─── 5. STAT COUNTER ────────────────────────────────────────── */
+/* 5. STAT COUNTER */
 const statNums = document.querySelectorAll('.stat-num');
 const statObs  = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -111,7 +108,7 @@ function animateCounter(el, target) {
   }, 40);
 }
 
-/* ─── 6. HERO ENTRY ANIMATIONS ──────────────────────────────── */
+/* 6. HERO ENTRY ANIMATIONS */
 function triggerHeroAnimations() {
   const items = [
     '.hero-badge', '.hero-title', '.hero-roles',
@@ -130,7 +127,7 @@ function triggerHeroAnimations() {
   });
 }
 
-/* ─── 7. ROLE CYCLING ────────────────────────────────────────── */
+/* 7. ROLE CYCLING */
 /*
  * HTML menggunakan beberapa .role-item; JS membaca semua teks dari sana
  * lalu memutar satu per satu dengan animasi fade-in / fade-out.
@@ -170,7 +167,7 @@ function triggerHeroAnimations() {
   setTimeout(() => setInterval(next, 2800), 2500);
 })();
 
-/* ─── 8. PROJECT LIGHTBOX ────────────────────────────────────── */
+/*8. PROJECT LIGHTBOX */
 const projectLightbox  = document.getElementById('projectLightbox');
 const lightboxImg      = document.getElementById('lightboxImg');
 const lightboxTitle    = document.getElementById('lightboxTitle');
@@ -263,7 +260,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft')  lightboxNav(-1);
 });
 
-/* ─── 8b. SHARE POPUP ────────────────────────────────────────── */
+/* 8b. SHARE POPUP */
 // URL aktif yang sedang di-share (dipakai oleh copyShareLink)
 window._currentShareUrl = '';
 
@@ -281,7 +278,7 @@ function _buildSharePopup(url, title) {
   const encMsg = encodeURIComponent(title + ' — ' + url);
   const encTtl = encodeURIComponent(title);
 
-  // Set href langsung — ini yang penting, harus SEBELUM popup terlihat
+  // Set href langsung — penting, harus SEBELUM popup terlihat
   document.getElementById('sharePopupTitle').textContent = title;
   document.getElementById('shareWA').href       = 'https://wa.me/?text=' + encMsg;
   document.getElementById('shareTwitter').href  = 'https://twitter.com/intent/tweet?text=' + encTtl + '&url=' + enc;
@@ -349,7 +346,7 @@ document.addEventListener('keydown', e => {
   }
 });
 
-/* ─── 9. CERTIFICATE MODAL ───────────────────────────────────── */
+/* 9. CERTIFICATE MODAL */
 const certModal      = document.getElementById('certModal');
 const certModalImg   = document.getElementById('certModalImg');
 const certModalTitle = document.getElementById('certModalTitle');
@@ -381,13 +378,9 @@ document.addEventListener('keydown', e => {
   }
 });
 
-/* ─── 10. CONTACT FORM (Formspree) ───────────────────────────── */
-/*
- * ⬇ GANTI "YOUR_FORM_ID" dengan Form ID kamu dari Formspree
- * Contoh: jika endpoint kamu https://formspree.io/f/abcd1234
- * maka tulis: 'https://formspree.io/f/abcd1234'
- */
-const FORMSPREE_URL = 'https://formspree.io/f/mpqbgllr'; // ← GANTI INI
+/* 10. CONTACT FORM (Formspree) */
+
+const FORMSPREE_URL = 'https://formspree.io/f/mpqbgllr';
 
 function handleFormSubmit(e) {
   e.preventDefault();
@@ -455,7 +448,7 @@ function setNote(msg, type) {
   setTimeout(() => { note.textContent = ''; }, 5000);
 }
 
-/* ─── 10. SMOOTH SCROLL ──────────────────────────────────────── */
+/* 10. SMOOTH SCROLL */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', function(e) {
     const href = this.getAttribute('href');
@@ -465,7 +458,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* ─── 11. PROJECT CARD TILT ──────────────────────────────────── */
+/* 11. PROJECT CARD TILT */
 document.querySelectorAll('.project-card').forEach(card => {
   card.addEventListener('mousemove', e => {
     const r  = card.getBoundingClientRect();
@@ -480,7 +473,7 @@ document.querySelectorAll('.project-card').forEach(card => {
   });
 });
 
-/* ─── 12. FLOATING PARTICLES (hero) ─────────────────────────── */
+/* 12. FLOATING PARTICLES (hero) */
 (function createParticles() {
   const hero = document.querySelector('.hero');
   if (!hero) return;
@@ -511,7 +504,7 @@ document.querySelectorAll('.project-card').forEach(card => {
   document.head.appendChild(ks);
 })();
 
-/* ─── 13. KONAMI CODE easter egg ─────────────────────────────── */
+/* 13. KONAMI CODE easter egg */
 const KONAMI = [38,38,40,40,37,39,37,39,66,65];
 let ki = 0;
 document.addEventListener('keydown', e => {
@@ -540,6 +533,6 @@ function easterEgg() {
   }, 2500);
 }
 
-/* ─── CONSOLE SIGNATURE ──────────────────────────────────────── */
+/* CONSOLE SIGNATURE */
 console.log('%c🚀 Fauzan Al-Ghifari | Portfolio v2.0','background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;padding:8px 16px;border-radius:8px;font-weight:700;font-size:14px');
 console.log('%cBuilt with HTML · CSS · JavaScript','color:#818cf8;font-size:12px');
