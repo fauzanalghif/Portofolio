@@ -1,10 +1,8 @@
-/* ============================================================
-   FAUZAN AL-GHIFARI PORTFOLIO — style.css
+/*  FAUZAN AL-GHIFARI PORTFOLIO — style.css
    Desain: Dark Mode Premium 2026
-   Font: DM Sans + Space Mono
-   ============================================================ */
+   Font: DM Sans + Space Mono */
 
-/* ─── CSS Variables ─────────────────────────────────────────── */
+/* CSS Variables */
 :root {
   --bg:           #080b14;
   --bg-2:         #0d1120;
@@ -34,7 +32,7 @@
   --trans:        0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ─── Reset ──────────────────────────────────────────────────── */
+/* Reset */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 body {
@@ -50,12 +48,12 @@ img { display: block; max-width: 100%; }
 ul  { list-style: none; }
 button { cursor: pointer; border: none; background: none; }
 
-/* ─── Scrollbar ──────────────────────────────────────────────── */
+/* Scrollbar */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 99px; }
 
-/* ─── Utility ────────────────────────────────────────────────── */
+/* Utility */
 .container { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem; }
 .section   { padding: 100px 0; }
 .accent {
@@ -80,7 +78,7 @@ button { cursor: pointer; border: none; background: none; }
   font-weight: 700; line-height: 1.2; letter-spacing: -0.5px;
 }
 
-/* ─── Scroll Animations ──────────────────────────────────────── */
+/* Scroll Animations */
 [data-aos] {
   opacity: 0; transform: translateY(28px);
   transition: opacity 0.7s ease, transform 0.7s ease;
@@ -92,7 +90,7 @@ button { cursor: pointer; border: none; background: none; }
 [data-aos="fade-left"]  { transform: translateX( 28px); }
 [data-aos].visible { opacity: 1; transform: translate(0,0); }
 
-/* ─── Buttons ────────────────────────────────────────────────── */
+/* Buttons */
 .btn-primary {
   display: inline-flex; align-items: center; gap: 0.6rem;
   padding: 0.85rem 2rem; background: var(--gradient);
@@ -121,7 +119,7 @@ button { cursor: pointer; border: none; background: none; }
   background: rgba(99,102,241,0.07);
 }
 
-/* ─── LOADER ─────────────────────────────────────────────────── */
+/* LOADER */
 .loader {
   position: fixed; inset: 0; background: var(--bg);
   display: flex; align-items: center; justify-content: center;
@@ -145,7 +143,7 @@ button { cursor: pointer; border: none; background: none; }
 }
 @keyframes loadFill { from { width: 0 } to { width: 100% } }
 
-/* ─── NAVBAR ─────────────────────────────────────────────────── */
+/* NAVBAR */
 .navbar {
   position: fixed; top: 0; left: 0; right: 0;
   z-index: 1000; padding: 1.1rem 0; transition: var(--trans);
@@ -189,7 +187,7 @@ button { cursor: pointer; border: none; background: none; }
 .hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
 
-/* ─── HERO ───────────────────────────────────────────────────── */
+/* HERO */
 .hero {
   min-height: 100vh; display: flex; align-items: center;
   position: relative; overflow: hidden; padding: 120px 0 80px;
@@ -340,7 +338,7 @@ button { cursor: pointer; border: none; background: none; }
   100% { opacity:0; transform:scaleY(0); transform-origin:bottom; }
 }
 
-/* ─── ABOUT ──────────────────────────────────────────────────── */
+/* ABOUT */
 .about { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 50%, var(--bg) 100%); }
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
 .about-lead { font-size: 1.15rem; margin-bottom: 1.2rem; line-height: 1.8; }
@@ -375,7 +373,7 @@ button { cursor: pointer; border: none; background: none; }
 .c-green  { color: #34d399; }
 .c-orange { color: #fb923c; }
 
-/* ─── SKILLS ─────────────────────────────────────────────────── */
+/* SKILLS */
 .skills { background: var(--bg); }
 .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
 .skills-col-title {
@@ -421,7 +419,7 @@ button { cursor: pointer; border: none; background: none; }
 .tool-chip i { color: var(--accent); }
 .tool-chip:hover { border-color: var(--accent); color: var(--text); background: rgba(99,102,241,0.12); transform: translateY(-2px); }
 
-/* ─── PROJECTS ───────────────────────────────────────────────── */
+/* PROJECTS */
 .projects { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%); }
 .projects-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
 .project-card {
@@ -476,7 +474,7 @@ button { cursor: pointer; border: none; background: none; }
 .paction.share:hover    { background:#25d366; border-color:#25d366; color:#fff; }
 .paction.download:hover { background:var(--accent); border-color:var(--accent); color:#fff; }
 
-/* ─── SHARE POPUP ────────────────────────────────────────────── */
+/* SHARE POPUP */
 .share-backdrop {
   position: fixed; inset: 0; z-index: 3500;
   background: rgba(0,0,0,0.55);
@@ -599,7 +597,7 @@ button { cursor: pointer; border: none; background: none; }
 .project-title { font-size:1rem; font-weight:700; margin-bottom:0.6rem; line-height:1.4; }
 .project-desc  { font-size:0.85rem; color:var(--text-muted); line-height:1.7; }
 
-/* ─── PROJECT LIGHTBOX ───────────────────────────────────────── */
+/* PROJECT LIGHTBOX */
 .project-lightbox {
   position: fixed; inset: 0;
   background: rgba(0,0,0,0.92); backdrop-filter: blur(12px);
@@ -670,7 +668,7 @@ button { cursor: pointer; border: none; background: none; }
 .lightbox-prev:hover,
 .lightbox-next:hover { background: var(--accent); border-color: var(--accent); transform: translateY(-50%) scale(1.1); }
 
-/* ─── CERTIFICATES ───────────────────────────────────────────── */
+/* CERTIFICATES */
 .certificates { background: var(--bg); }
 .cert-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
 .cert-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; cursor:pointer; transition:var(--trans); }
@@ -698,7 +696,7 @@ button { cursor: pointer; border: none; background: none; }
 .cert-modal-info h4   { font-size:1rem; font-weight:700; }
 .cert-modal-info span { font-size:0.85rem; color:var(--text-muted); }
 
-/* ─── CONTACT ────────────────────────────────────────────────── */
+/* CONTACT */
 .contact { background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%); }
 .contact-grid { display:grid; grid-template-columns:1fr 1.3fr; gap:4rem; align-items:start; }
 .contact-lead { font-size:1.05rem; color:var(--text-dim); margin-bottom:2.5rem; line-height:1.8; }
@@ -721,7 +719,7 @@ button { cursor: pointer; border: none; background: none; }
 .form-group textarea:focus { border-color:var(--accent); background:var(--bg-card); box-shadow:0 0 0 3px rgba(99,102,241,0.12); }
 .form-note { font-size:0.82rem; text-align:center; min-height:1.2rem; margin-top:0.25rem; }
 
-/* ─── FOOTER ─────────────────────────────────────────────────── */
+/* FOOTER */
 .footer { border-top:1px solid var(--border); padding:2rem 0; background:var(--bg); }
 .footer-inner { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
 .footer-logo  { font-family:var(--font-mono); font-size:1.1rem; font-weight:700; }
@@ -730,12 +728,12 @@ button { cursor: pointer; border: none; background: none; }
 .footer-socials a { width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.05); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:1rem; color:var(--text-dim); transition:var(--trans); }
 .footer-socials a:hover { background:var(--accent); border-color:var(--accent); color:#fff; transform:translateY(-3px); }
 
-/* ─── BACK TO TOP ────────────────────────────────────────────── */
+/* BACK TO TOP */
 .back-top { position:fixed; bottom:2rem; right:2rem; width:44px; height:44px; border-radius:50%; background:var(--gradient); display:flex; align-items:center; justify-content:center; font-size:1.4rem; color:#fff; z-index:500; box-shadow:0 4px 20px rgba(99,102,241,0.4); opacity:0; visibility:hidden; transform:translateY(10px); transition:var(--trans); cursor:pointer; }
 .back-top.visible { opacity:1; visibility:visible; transform:translateY(0); }
 .back-top:hover   { transform:translateY(-3px); box-shadow:0 8px 28px rgba(99,102,241,0.5); }
 
-/* ─── RESPONSIVE ─────────────────────────────────────────────── */
+/* RESPONSIVE */
 @media (max-width: 1024px) {
   .projects-grid { grid-template-columns: repeat(2,1fr); }
   .cert-grid     { grid-template-columns: repeat(2,1fr); }
